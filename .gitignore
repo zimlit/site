@@ -1,0 +1,11 @@
+/*.lua
+/views/*.lua
+.tup
+/client_body_temp
+/logs
+/fastcgi_temp
+/proxy_temp
+/scgi_temp
+/static/node_modules
+/static/dist
+/uwsgi_temp

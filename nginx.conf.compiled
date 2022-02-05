@@ -1,0 +1,35 @@
+env LAPIS_ENVIRONMENT=development;
+worker_processes 1;
+error_log stderr notice;
+daemon off;
+pid logs/nginx.pid;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  include mime.types;
+    lua_package_path "/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib/lua/5.1/?.lua;/usr/lib/lua/5.1/?/init.lua;./?.lua;./?/init.lua;/home/devinr/.luarocks/share/lua/5.1/?.lua;/home/devinr/.luarocks/share/lua/5.1/?/init.lua;;";
+  lua_package_cpath "/usr/lib/lua/5.1/?.so;/usr/lib/lua/5.1/loadall.so;./?.so;/home/devinr/.luarocks/lib/lua/5.1/?.so;;";
+
+  server {
+    listen 8080;
+    lua_code_cache off;
+
+    location / {
+      default_type text/html;
+      content_by_lua_block {
+        require("lapis").serve("app")
+      }
+    }
+
+    location /dist/ {
+      alias static/dist/;
+    }
+
+    location /favicon.ico {
+      alias static/dist/favicon.ico;
+    }
+  }
+}
