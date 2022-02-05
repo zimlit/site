@@ -1,3 +1,0 @@
-: foreach *.moon |> moonc %f |> %B.lua
-: foreach views/*.moon |> moonc %f |> views/%B.lua
-: |> cd static; npm run build |> static/dist/bundle.js

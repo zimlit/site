@@ -1,0 +1,1 @@
+:  |> npm run build |> dist/index.bundle.js dist/coding.bundle.js
